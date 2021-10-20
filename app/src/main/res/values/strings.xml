@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">AndroidTask</string>
+    <string name="internet_error_message">Sorry check your internet connection</string>
+    <string name="username">Username</string>
+    <string name="user_email">User email id</string>
+    <string name="employee_id">Employee id</string>
+    <string name="name">Name :</string>
+    <string name="email">Email :</string>
+    <string name="address">Address :</string>
+    <string name="phone">Phone :</string>
+    <string name="company_details">Company Details :</string>
+    <string name="real_address">
+        %1$s, \n
+        %2$s, \n
+        %3$s.
+    </string>
+    <string name="real_company">
+        %1$s \n
+        website: %2$s \n
+    </string>
+</resources>
