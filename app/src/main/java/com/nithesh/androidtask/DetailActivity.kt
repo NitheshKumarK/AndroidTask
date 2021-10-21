@@ -3,6 +3,7 @@ package com.nithesh.androidtask
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.nithesh.androidtask.data.Employee
@@ -40,19 +41,27 @@ class DetailActivity : AppCompatActivity() {
             }
         }
         binding.realEmailTextView.setOnClickListener {
-            val emailIntent = Intent(
-                Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", employee.email, null
-                )
-            )
-            startActivity(Intent.createChooser(emailIntent, null))
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply{
+                type = "*/*"
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(employee.email))
+                putExtra(Intent.EXTRA_SUBJECT, "Email subject")
+                putExtra(Intent.EXTRA_TEXT, "Email message text")
+            }
+            sendIntent(emailIntent)
         }
         binding.realPhoneTextView.setOnClickListener {
-            val phoneIntent = Intent()
-                .setAction(Intent.ACTION_DIAL)
-                .setData(Uri.parse("tel: ${employee.phone}"))
-            startActivity(phoneIntent)
-
+            val callIntent = Uri.parse("tel:"+employee.phone).let{
+                Intent(Intent.ACTION_DIAL,it)
+            }
+            sendIntent(callIntent)
+        }
+    }
+    private fun sendIntent(appIntent: Intent){
+        try{
+            startActivity(appIntent)
+        }catch(e: Exception){
+            Toast.makeText(this, "App Not found", Toast.LENGTH_SHORT).show()
         }
     }
 }
